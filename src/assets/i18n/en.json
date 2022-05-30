@@ -1,0 +1,19 @@
+{
+  "USER": {
+    "TITLE": "User",
+    "NEW": "Create",
+    "EDIT": "Edit"
+  },
+  "SEARCH": {
+    "TITLE": "Search..."
+  },
+  "KEYWORDS": {
+    "HOME": "Home",
+    "USER": "User",
+    "PRODUCT": "Products",
+    "PRODUCT_LIST": "Product List",
+    "EDIT": "Edit",
+    "CREATE": "Create",
+    "NEW": "New"
+  }
+}

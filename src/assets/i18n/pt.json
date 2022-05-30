@@ -1,0 +1,19 @@
+{
+  "USER": {
+    "TITLE": "Usuário",
+    "NEW": "Criar",
+    "EDIT": "Editar"
+  },
+  "SEARCH": {
+    "TITLE": "Pesquisar..."
+  },
+  "KEYWORDS": {
+    "HOME": "Tela Inicial",
+    "USER": "Usuário",
+    "PRODUCT": "Produtos",
+    "PRODUCT_LIST": "Listagem de Produtos",
+    "EDIT": "Editar",
+    "CREATE": "Criar",
+    "NEW": "Novo"
+  }
+}
