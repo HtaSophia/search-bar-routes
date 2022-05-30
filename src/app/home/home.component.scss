@@ -4,11 +4,32 @@
     background: #f0f0f0;
     border: 1px solid #f0f0f0;
     border-radius: 10px;
-    padding: 10px;
+    padding: 0.7rem;
     margin-top: 10px;
+  }
+}
 
-    &:focus {
-      outline: none;
+ul.routes {
+  width: 500px;
+  margin: 0;
+  padding: 0.7rem;
+  list-style: none;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+
+  .route {
+    .tag {
+      background-color: #f0f0f0;
+      padding: 0.25rem;
+      border-radius: 5px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    hr {
+      opacity: 0.2;
     }
   }
 }

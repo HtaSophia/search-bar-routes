@@ -8,6 +8,21 @@
         name="search"
         class="search"
       />
+
+      <ul class="routes" *ngIf="filteredRoutes.length > 0">
+        <li
+          *ngFor="let route of filteredRoutes; let first = first"
+          class="route"
+        >
+          <hr [hidden]="first" />
+          <span class="tag">{{ route.title | translate }}</span>
+          <a routerLink="/{{ route.path }}">
+            <span class="description">
+              {{ route.description | translate }}
+            </span>
+          </a>
+        </li>
+      </ul>
     </form>
   </div>
 </div>
