@@ -1,0 +1,13 @@
+<div class="home-component">
+  <div class="search-bar">
+    <form [formGroup]="searchForm">
+      <input
+        placeholder="{{ 'SEARCH.TITLE' | translate }}"
+        formControlName="search"
+        id="search"
+        name="search"
+        class="search"
+      />
+    </form>
+  </div>
+</div>
