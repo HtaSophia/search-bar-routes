@@ -1,10 +1,14 @@
 import { Type } from '@angular/core';
-import { Route } from '@angular/router';
+import { LoadChildrenCallback, Route } from '@angular/router';
 
 export type RouteInterface = Omit<Route, 'children' | 'loadChildren'>;
 
 export interface AngularRouteBuilder {
   buildAngularRoutes(): Route;
+}
+
+export interface AngularRoutesBuilder {
+  buildAngularRoutes(): Route[];
 }
 
 export interface SearchableRouteProps {
@@ -19,6 +23,6 @@ export type SearchableRoute =
 export type SearchableRoutes = SearchableRoute[];
 
 export interface SearchableLazyRouteProps extends SearchableRouteProps {
-  moduleUrl: string;
-  ngModule: String;
+  loadChildren: LoadChildrenCallback;
+  children: SearchableRoute[];
 }

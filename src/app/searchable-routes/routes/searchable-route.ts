@@ -1,12 +1,14 @@
 import { Type } from '@angular/core';
-import { Route } from '@angular/router';
+import { LoadChildrenCallback, Route } from '@angular/router';
 import { SearchableRoutesModule } from '../searchable-routes.module';
 import {
   AngularRouteBuilder,
+  AngularRoutesBuilder,
   RouteInterface,
   SearchableLazyRouteProps,
   SearchableRoute,
   SearchableRouteProps,
+  SearchableRoutes,
 } from './types';
 
 export class SimpleRoute implements AngularRouteBuilder {
@@ -20,7 +22,7 @@ export class SimpleRoute implements AngularRouteBuilder {
 export class SearchableSimpleRoute implements AngularRouteBuilder {
   public readonly title!: string;
   public readonly description!: string;
-  public readonly children: SearchableRoute[] = [];
+  public readonly children?: SearchableRoute[];
   private readonly route!: Route;
 
   constructor(route: RouteInterface & SearchableRouteProps) {
@@ -28,7 +30,7 @@ export class SearchableSimpleRoute implements AngularRouteBuilder {
 
     this.title = title;
     this.description = description;
-    this.children = children ?? [];
+    this.children = children;
     this.route = rest;
   }
 
@@ -41,22 +43,35 @@ export class SearchableSimpleRoute implements AngularRouteBuilder {
 }
 
 export class SearchableLazyRoute implements AngularRouteBuilder {
+  public loadChildren!: LoadChildrenCallback;
+  public readonly children: SearchableRoute[] = [];
   private searchableRoute!: SearchableRoute;
-  public moduleUrl!: string;
-  public ngModule!: String;
 
   constructor(route: RouteInterface & SearchableLazyRouteProps) {
-    const { moduleUrl, ngModule, ...rest } = route;
-    this.searchableRoute = new SearchableSimpleRoute(rest);
+    const { loadChildren, children, ...rest } = route;
 
-    this.moduleUrl = route.moduleUrl;
-    this.ngModule = route.ngModule;
+    this.loadChildren = loadChildren;
+    this.children = children;
+
+    this.searchableRoute = new SearchableSimpleRoute(rest);
   }
 
   public buildAngularRoutes(): Route {
+    if (this.children.length === 0) {
+      throw new Error('Children array for lazy load modules cant be empty');
+    }
+
     return {
       ...this.searchableRoute.buildAngularRoutes(),
-      loadChildren: async () => (await import(this.moduleUrl))[this.moduleUrl],
+      loadChildren: this.loadChildren,
     };
+  }
+}
+
+export class AngularSearchableRoutes implements AngularRoutesBuilder {
+  constructor(private readonly routes: SearchableRoutes) {}
+
+  public buildAngularRoutes(): Route[] {
+    return this.routes.map((route) => route.buildAngularRoutes());
   }
 }
